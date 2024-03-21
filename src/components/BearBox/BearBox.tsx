@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react'
+
 import { useBearStore } from '@/stores/bearStore'
+import { useFoodStore } from '@/stores/foodStore'
 
 export default function BearBox() {
   // Long syntax
@@ -12,8 +15,23 @@ export default function BearBox() {
   // Shortest syntax
   const { bears, increasePopulation, removeAllBears } = useBearStore()
 
+  const [backgroundColor, setBackgroundColor] = useState<'lightgreen' | 'lightpink'>('lightpink')
+
+  useEffect(() => {
+    // const unsubcribe = useFoodStore.subscribe((state) =>
+    //   state.fish > 5 ? setBackgroundColor('lightgreen') : setBackgroundColor('lightpink')
+    // )
+
+    const unsubcribe = useFoodStore.subscribe(
+      (state) => state.fish,
+      (fish) => (fish > 5 ? setBackgroundColor('lightgreen') : setBackgroundColor('lightpink'))
+    )
+
+    return unsubcribe
+  }, [])
+
   return (
-    <div className="box">
+    <div className="box" style={{ backgroundColor }}>
       <h1>Bear Box</h1>
       <p>{bears} 🐻</p>
       <div>
