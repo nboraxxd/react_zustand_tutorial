@@ -1,7 +1,7 @@
-import { useFoodStore } from '@/stores/foodStore'
+import { useFoodStore, addOneFish, addSomeFish, removeAllFish, removeOneFish } from '@/stores/foodStore'
 
 export default function FoodBox() {
-  const { fish, addOneFish, removeOneFish, removeAllFish } = useFoodStore()
+  const fish = useFoodStore((state) => state.fish)
 
   return (
     <div className="box">
@@ -17,6 +17,8 @@ export default function FoodBox() {
           Remove fish
         </button>
         <button onClick={removeAllFish}>Remove all fish</button>
+
+        <button onClick={() => addSomeFish(5)}>Add 5 fish</button>
       </div>
     </div>
   )

@@ -15,7 +15,9 @@ export default function BearBox() {
   // Shortest syntax
   const { bears, increasePopulation, removeAllBears } = useBearStore()
 
-  const [backgroundColor, setBackgroundColor] = useState<'lightgreen' | 'lightpink'>('lightpink')
+  const [backgroundColor, setBackgroundColor] = useState<'lightgreen' | 'lightpink'>(
+    useFoodStore.getState().fish > 5 ? 'lightgreen' : 'lightpink'
+  )
 
   useEffect(() => {
     // const unsubcribe = useFoodStore.subscribe((state) =>
