@@ -1,19 +1,27 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 type TBearStoreState = {
   bears: number
+  color: string
+  size: string
   increasePopulation: () => void
   removeAllBears: () => void
 }
 
 export const useBearStore = create<TBearStoreState>()(
-  devtools(
+  persist(
     (set) => ({
       bears: 0,
+      color: 'white',
+      size: 'big',
       increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
       removeAllBears: () => set({ bears: 0 }),
     }),
-    { enabled: true, name: 'BearStore' }
+    {
+      name: 'bear-store',
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => !['size'].includes(key))),
+    }
   )
 )
