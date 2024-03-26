@@ -1,4 +1,5 @@
 import { BearBox } from '@/components/BearBox'
+import { CatBox } from '@/components/CatBox'
 import { FoodBox } from '@/components/FoodBox'
 
 export default function App() {
@@ -8,6 +9,9 @@ export default function App() {
       <div>
         <BearBox />
         <FoodBox />
+      </div>
+      <div>
+        <CatBox />
       </div>
     </div>
   )
